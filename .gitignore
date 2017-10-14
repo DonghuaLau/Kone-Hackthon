@@ -1,0 +1,9 @@
+*.swp
+*.swo
+*.out
+*.log
+*.a
+project/bin
+project/pkg
+project/src/github.com
+tags
