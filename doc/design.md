@@ -3,14 +3,14 @@
 
 ## 数据库
 
-### 访问
+### 访客
 * user_id
 * name
 * create_time
 * visit_date
 * face_id
 
-### 当前访问
+### 当前访客
 * user_id
 * last_visit_time
 * is_visiting
