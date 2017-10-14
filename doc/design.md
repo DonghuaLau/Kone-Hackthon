@@ -4,14 +4,17 @@
 ## 数据库
 
 ### 访客
-* user_id
+* guest_id
 * name
 * create_time
 * visit_date
 * face_id
+* visit_building
+* visit_floor
+* visit_room
 
 ### 当前访客
-* user_id
+* guest_id
 * last_visit_time
 * is_visiting
 * position_info
@@ -21,7 +24,6 @@
 * type
 * name
 * face_id
-
 
 ## 后台管理(web)
 * /manager/index
@@ -47,6 +49,8 @@
 ### 访客
 * 访客信息，导航展示: /guest/[guest_id]
 * 访客人脸采集: /guest/face/collect/[guest_id]
+* 访客上传位置: /guest/position/info
+* 电梯位置, 电梯调试: /guest/elevator
 
 ## 后台服务器 
 * 人脸检测, 记录进入办公楼的访客
