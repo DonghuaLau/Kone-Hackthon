@@ -113,6 +113,30 @@ func Upload(url, file string, face_set string) (resp string, err error) {
 	return resp, err
 }
 
+func get_value(result string) (float,string){
+	
+	var confidence float
+	var face_token string
+
+	var f interface{}
+	err := json.Unmarshal(result, &f)
+	m := f.(map[string]interface{})
+
+	for k, v := range m {
+    switch vv := v.(type) {
+    case []interface{}:
+        for i, u := range vv {
+            if i=="confidence" {
+            	confidence=u
+            }else if i== "face_token" {
+            	face_token=u
+            }
+        }
+    }
+
+    return confidence, face_token;
+}
+
 func main() {
 	//var res string
 	timestamp := int(time.Now().Unix())
