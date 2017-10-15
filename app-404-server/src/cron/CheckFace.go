@@ -13,6 +13,7 @@ import (
 	"strconv"
 	"testing"
 	"time"
+	"model"
 )
 
 func TestJson2Map(t *testing.T) (mapResult map[string]interface{}) {
@@ -155,18 +156,28 @@ func main() {
 	if err != nil {
 		fmt.Println("err: ", err)
 	}
-	
+	confidence1,face_id1 := get_value(res1)
 
 	if r := Judge(confidence1); r == 1 {
 		fmt.Println("staff")
 	}
+
 	// 检查是否为访客
 	res2, err := Upload("https://api-cn.faceplusplus.com/facepp/v3/search", imgFile, "staff")
 	if err != nil {
 		fmt.Println("err: ", err)
 	}
+
+	confidence2,face_id2 := get_value(res1)
+
 	if r := Judge(confidence2); r == 1 {
 		fmt.Println("guests")
+	}
+
+	if confidence1>80{
+		InsertVisitingGuest(face_id1,1)
+	}else if confidence2>80{
+		InsertVisitingGuest(face_id2,2)
 	}
 
 }
