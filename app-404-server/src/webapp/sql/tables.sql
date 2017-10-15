@@ -14,6 +14,7 @@ create table `guest` (
 
 create table `visiting_guest` (
 	`guest_id` int NOT NULL,
+	`type` int NOT NULL DEFAULT 0,
 	`is_visiting` int NOT NULL DEFAULT 0,
 	`last_visit_time` datetime,
 	`position_info` text, 

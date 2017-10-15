@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>AI Guest</title>
+</head>
+
+<body>
+    <h1>Welcome to AI Guest</h1>
+
+	<h2>Staffs Visiting</h2>
+	<hr>
+
+	<h2>Guests Visiting</h2>
+	<hr>
+	{{range .Guests}} 
+		<h3>{{.Name}}</h3>
+	{{end}}
+
+	<h2>Strangers Visiting</h2>
+	<hr>
+	{{range .Guests}} 
+		<h3>{{.Name}}</h3>
+	{{end}}
+
+
+</body>
+</html>

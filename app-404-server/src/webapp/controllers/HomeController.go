@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"webapp/models"
+	"webapp/views"
 )
 
 var HomeController _HomeController
@@ -66,4 +67,5 @@ func (ctl *_HomeController) GetGuests(resp http.ResponseWriter, req *http.Reques
 		fmt.Println(guests[i])
 	}
 	//fmt.Fprintf(resp, guests)
+	views.HomeView.Show(resp, guests)
 }

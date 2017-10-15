@@ -120,3 +120,4 @@ func (guest *MGuest) Get(id int) []MGuest {
 
 	return guests
 }
+

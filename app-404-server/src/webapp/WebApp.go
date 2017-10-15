@@ -6,7 +6,10 @@ import (
 	"net/http"
 	"webapp/controllers"
 	"webapp/models"
+	"webapp/views"
 )
+
+
 
 type WebApp struct {
 	//_server  http.ServeMux
@@ -17,11 +20,14 @@ func (app *WebApp) init() {
 
 	app.routers()
 
+
 	// models init
 	models.Initer.Init();
 	models.Guest.Init();
 	//models.VisitingGuest.init();
 	//models.Staff.init();
+
+	views.HomeView.Init();
 
 	for key, value := range app._routers {
 		fmt.Println("key: ", key, ", method: ", value._method, ", URI: ", value._uri)

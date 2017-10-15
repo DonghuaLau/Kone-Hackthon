@@ -1,4 +1,8 @@
 #!/bin/sh
 
-bin/webapp.exe
+cd bin
+
+./webapp.exe
+
+cd -
 

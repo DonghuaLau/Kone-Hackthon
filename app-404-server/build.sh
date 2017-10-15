@@ -12,3 +12,5 @@ export GOSRC=${GOSRC}
 cd ${GOSRC}/webapp
 go install
 cd -;
+
+#cp ${GOSRC}/webapp/views/*.tmpl  bin/views/ -rf
