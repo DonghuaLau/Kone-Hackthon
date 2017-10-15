@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -9,17 +10,44 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"strconv"
+	"testing"
+	"time"
 )
 
-func CheckFace() {
-
-	pwdCmd := exec.Command("ffmpeg.exe", "-i", "rtmp://127.0.0.1/live", "-vframes", "1", "-y", "-f", "image2", "-t", "0.2", "-s", "480x866", "d:/d.jpg")
-	if err := pwdCmd.Run(); err != nil {
-		fmt.Println("Error: ", err)
+func TestJson2Map(t *testing.T) (mapResult map[string]interface{}) {
+	jsonStr := `
+    {
+        "name":"liangyongxing",
+        "age":12
+    }
+    `
+	//var mapResult map[string]interface{}
+	//使用 json.Unmarshal(data []byte, v interface{})进行转换,返回 error 信息
+	if err := json.Unmarshal([]byte(jsonStr), &mapResult); err != nil {
+		t.Fatal(err)
 	}
+	t.Log(mapResult)
+	return mapResult
 }
 
-func Upload(url, file string) (err error) {
+func Judge(confidence float64) (res int) {
+	if confidence > 90 {
+		res = 1
+	}
+	return res
+}
+
+func CheckFace(imgFile string) {
+
+	pwdCmd := exec.Command("ffmpeg.exe", "-i", "rtmp://127.0.0.1/live", "-vframes", "1", "-y", "-f", "image2", "-t", "0.1", "-s", "480x866", imgFile)
+	if err := pwdCmd.Run(); err != nil {
+		fmt.Println("err: ", err)
+	}
+
+}
+
+func Upload(url, file string, face_set string) (resp string, err error) {
 	var respBody []byte
 	// Prepare a form that you will submit to that URL.
 	var b bytes.Buffer
@@ -42,6 +70,9 @@ func Upload(url, file string) (err error) {
 		return
 	}
 	if err = w.WriteField("api_secret", "BpTIea2MpMzVTwhay3AQjWAIZJZXS4Q1"); err != nil {
+		return
+	}
+	if err = w.WriteField("outer_id", face_set); err != nil {
 		return
 	}
 	// if fw, err = w.CreateFormField("api_key"); err != nil {
@@ -75,13 +106,43 @@ func Upload(url, file string) (err error) {
 	}
 	respBody, err = ioutil.ReadAll(res.Body)
 	if err != nil {
-		return err
+		return "", err
 	}
-	fmt.Printf("resp status: %s,resp body: %s", res.Status, string(respBody))
-	return
+	resp = string(respBody)
+	fmt.Printf("resp status: %s,resp body: %s", res.Status, resp)
+	return resp, err
 }
 
 func main() {
-	CheckFace()
-	Upload("https://api-cn.faceplusplus.com/facepp/v3/detect", "D:\\d.jpg")
+	//var res string
+	timestamp := int(time.Now().Unix())
+	imgFile := "d:\\temp\\" + strconv.Itoa(timestamp) + ".jpg"
+	fmt.Printf("%s", imgFile)
+	CheckFace(imgFile)
+
+	confidence1 := 0.1 // 员工可信度
+	confidence2 := 0.1 // 访客可信度
+	
+	rc_1 := regexp.MustCompile(`[a-z]+`)  //
+	rc_2 := regexp.MustCompile(`[a-z]+`)  // 
+	
+	// 检查是否为员工
+	res1, err := Upload("https://api-cn.faceplusplus.com/facepp/v3/search", imgFile, "staff")
+	if err != nil {
+		fmt.Println("err: ", err)
+	}
+	
+
+	if r := Judge(confidence1); r == 1 {
+		fmt.Println("staff")
+	}
+	// 检查是否为访客
+	res2, err := Upload("https://api-cn.faceplusplus.com/facepp/v3/search", imgFile, "staff")
+	if err != nil {
+		fmt.Println("err: ", err)
+	}
+	if r := Judge(confidence2); r == 1 {
+		fmt.Println("guests")
+	}
+
 }
