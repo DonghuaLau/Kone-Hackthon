@@ -1,13 +1,13 @@
-package main
+package models
 
 import (
     "fmt"
     "strconv"
+    //"database/sql"
 	_ "github.com/go-sql-driver/mysql"
 )
 
 var Guest MGuest
-var VisitGuest VGuest
 
 type MGuest struct {
 
@@ -27,9 +27,8 @@ type VGuest struct{
 	Guest_id int
 	Is_visiting int
 	Type  int
-	Last_visit_time string
-	//Position_info string
-	Name string
+	Last_visit_time string 
+	Position_info string
 }
 
 func (guest *MGuest) Init() {
@@ -130,11 +129,12 @@ func (guest *MGuest) Get(id int) []MGuest {
 	return guests
 }
 
-func (guest *VGuest) GetVisitingGuests(_type int) []VGuest {
+func GetVisitingGuests() []VGuest
+{
 	var visiting_guests []VGuest;
 	var visiting_guest_info VGuest;
 
-	prepare_sql := "SELECT * from  visiting_guest where type = " + strconv.Itoa(_type) + " ORDER BY last_visit_time DESC"
+	prepare_sql := "SELECT * from  visiting_guest where type=2 ORDER BY last_visit_time DESC"
 	fmt.Println("sql: ", prepare_sql)
 
 
@@ -151,29 +151,28 @@ func (guest *VGuest) GetVisitingGuests(_type int) []VGuest {
 		err = rows.Scan(
 					&visiting_guest_info.Guest_id,
 					&visiting_guest_info.Is_visiting,
-					&visiting_guest_info.Last_visit_time,
-					//&visiting_guest_info.Position_info,
 					&visiting_guest_info.Type,
-					&visiting_guest_info.Name)
+					&visiting_guest_info.Last_visit_time,
+					&visiting_guest_info.Position_info)
 
 		if(err != nil){
 			fmt.Println("sql scan failed, error: ", err)
 			return visiting_guests
 		}
 
-		visiting_guests = append(visiting_guests, visiting_guest_info)
+		guests = append(visiting_guests, visiting_guest_info)
 	}
 
 	return visiting_guests
 }
 
-/*
-func (guest *VGuest) GetStrangers() []VGuest {
+func GetStrangers() []VGuest
+{
 	var strangers []VGuest;
 	var stranger_info VGuest;
 
 	prepare_sql := "SELECT * from  visiting_guest where type=3 ORDER BY last_visit_time DESC"
-	//fmt.Println("sql: ", prepare_sql)
+	fmt.Println("sql: ", prepare_sql)
 
 
 	rows, err := Initer._db.Query(prepare_sql)
@@ -191,7 +190,6 @@ func (guest *VGuest) GetStrangers() []VGuest {
 					&stranger_info.Is_visiting,
 					&stranger_info.Type,
 					&stranger_info.Last_visit_time,
-					&stranger_info.Name,
 					&stranger_info.Position_info)
 
 		if(err != nil){
@@ -199,16 +197,15 @@ func (guest *VGuest) GetStrangers() []VGuest {
 			return strangers
 		}
 
-		strangers = append(strangers, stranger_info)
+		guests = append(strangers, stranger_info)
 	}
 
 	return strangers
 }
-*/
 
-func (guest *VGuest)InsertVisitingGuest(faceid string, _type int) bool {
-
-	query_sql := "SELECT guest_id from guest where face_id = '"+ faceid + "'"
+func InsertVisitingGuest(faceid string, type int) bool
+{
+	query_sql := "SELECT guest_id from guest where face_id="+faceid
 
 	rows, err := Initer._db.Query(query_sql)
 
@@ -216,15 +213,16 @@ func (guest *VGuest)InsertVisitingGuest(faceid string, _type int) bool {
 		fmt.Println("sql query failed, error: ", err)
 		return false
 	}
-
-	var guest_id int
+ 	
+ 	guest_id int
 	rows.Scan(&guest_id)
 
-	insert_sql := "INSERT into visiting_guest values("+ strconv.Itoa(guest_id) + " , 1, "+ strconv.Itoa(_type) +", now())"
+	insert_sql := "INSERT into visiting_guest values("+guest_id+" ,1,"+type+", now()) "
 
-	rows,err = Initer._db.Query(insert_sql)
+	rows,err := Initer._db.Query(insert_sql)
 
-	if(err != nil) {
+	if(err != nil)
+	{
 		fmt.Println("sql insert failed, error: ", err)
 		return false
 	}

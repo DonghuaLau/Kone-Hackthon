@@ -1,0 +1,69 @@
+lzp1
+{
+    "image_id": "wTAQI4Y2lDveXEbNgI5urw==",
+    "request_id": "1508035943,0c74d7f5-bba2-47de-8af7-563082f0a8f1",
+    "time_used": 449,
+    "faces": [
+        {
+            "face_rectangle": {
+                "width": 350,
+                "top": 678,
+                "left": 410,
+                "height": 350
+            },
+            "face_token": "f671f2337d116ed19617bc057e517e5b"
+        }
+    ]
+}
+lzp2
+{
+    "image_id": "sA14oRpEk413B/b4bLHxiA==",
+    "request_id": "1508035973,c214cf7a-c5e5-4cc9-9298-055e2509fe12",
+    "time_used": 525,
+    "faces": [
+        {
+            "face_rectangle": {
+                "width": 364,
+                "top": 629,
+                "left": 394,
+                "height": 364
+            },
+            "face_token": "40c5a8625cb1703cdd08cd346cb05032"
+        }
+    ]
+}
+
+ldh1
+{
+    "image_id": "4Wb8ynKBgvsOKjeXxmKVzg==",
+    "request_id": "1508036058,4e14b30d-b515-49bb-a512-7b126af5ffc2",
+    "time_used": 440,
+    "faces": [
+        {
+            "face_rectangle": {
+                "width": 300,
+                "top": 662,
+                "left": 409,
+                "height": 300
+            },
+            "face_token": "02e739a072b1335436c91a2ba1141303"
+        }
+    ]
+}
+ldh2
+{
+    "image_id": "4Wb8ynKBgvsOKjeXxmKVzg==",
+    "request_id": "1508036081,8ab9caa5-520a-4a31-a1a6-d25f0457069a",
+    "time_used": 342,
+    "faces": [
+        {
+            "face_rectangle": {
+                "width": 300,
+                "top": 662,
+                "left": 409,
+                "height": 300
+            },
+            "face_token": "5a4fea73e541d246547c169e08dbbd0a"
+        }
+    ]
+}
