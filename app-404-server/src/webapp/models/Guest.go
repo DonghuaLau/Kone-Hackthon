@@ -23,6 +23,14 @@ type MGuest struct {
 	Visit_room string
 }
 
+type VGuest struct{
+	Guest_id int
+	Is_visiting int
+	Type  int
+	Last_visit_time string 
+	Position_info string
+}
+
 func (guest *MGuest) Init() {
 	guest.Table_name = "guest"
 }
@@ -119,4 +127,78 @@ func (guest *MGuest) Get(id int) []MGuest {
 	}
 
 	return guests
+}
+
+void GetVisitingGuests() []VGuest
+{
+	var visiting_guests []VGuest;
+	var visiting_guest_info VGuest;
+
+	prepare_sql := "SELECT * from  visiting_guest where type=2 ORDER BY last_visit_time DESC"
+	fmt.Println("sql: ", prepare_sql)
+
+
+	rows, err := Initer._db.Query(prepare_sql)
+
+	if(err != nil){
+		fmt.Println("sql query failed, error: ", err)
+		return visiting_guests
+	}
+
+
+	for rows.Next() {
+
+		err = rows.Scan(
+					&visiting_guest_info.Guest_id,
+					&visiting_guest_info.Is_visiting,
+					&visiting_guest_info.Type,
+					&visiting_guest_info.Last_visit_time,
+					&visiting_guest_info.Position_info)
+
+		if(err != nil){
+			fmt.Println("sql scan failed, error: ", err)
+			return visiting_guests
+		}
+
+		guests = append(visiting_guests, visiting_guest_info)
+	}
+
+	return visiting_guests
+}
+
+void GetStrangers() []VGuest
+{
+	var strangers []VGuest;
+	var stranger_info VGuest;
+
+	prepare_sql := "SELECT * from  visiting_guest where type=3 ORDER BY last_visit_time DESC"
+	fmt.Println("sql: ", prepare_sql)
+
+
+	rows, err := Initer._db.Query(prepare_sql)
+
+	if(err != nil){
+		fmt.Println("sql query failed, error: ", err)
+		return strangers
+	}
+
+
+	for rows.Next() {
+
+		err = rows.Scan(
+					&stranger_info.Guest_id,
+					&stranger_info.Is_visiting,
+					&stranger_info.Type,
+					&stranger_info.Last_visit_time,
+					&stranger_info.Position_info)
+
+		if(err != nil){
+			fmt.Println("sql scan failed, error: ", err)
+			return strangers
+		}
+
+		guests = append(strangers, stranger_info)
+	}
+
+	return strangers
 }
