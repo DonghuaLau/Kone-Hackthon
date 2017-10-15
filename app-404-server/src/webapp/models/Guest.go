@@ -129,7 +129,7 @@ func (guest *MGuest) Get(id int) []MGuest {
 	return guests
 }
 
-void GetVisitingGuests() []VGuest
+func GetVisitingGuests() []VGuest
 {
 	var visiting_guests []VGuest;
 	var visiting_guest_info VGuest;
@@ -166,7 +166,7 @@ void GetVisitingGuests() []VGuest
 	return visiting_guests
 }
 
-void GetStrangers() []VGuest
+func GetStrangers() []VGuest
 {
 	var strangers []VGuest;
 	var stranger_info VGuest;
@@ -203,7 +203,7 @@ void GetStrangers() []VGuest
 	return strangers
 }
 
-void InsertVisitingGuest(faceid string, type int) bool
+func InsertVisitingGuest(faceid string, type int) bool
 {
 	query_sql := "SELECT guest_id from guest where face_id="+faceid
 
