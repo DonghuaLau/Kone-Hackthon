@@ -49,23 +49,29 @@ func (ctl *_HomeController) GetGuests(resp http.ResponseWriter, req *http.Reques
 
 
 	/*
-	var guest _Guest{
-				  "Tom"
-				, "2017-10-15 08:30:00"
-				, "2017-10-16"
-				, "face_id_12135"
-				, "Kone Main Building"
-				, "3"
-				, "305"
-			}
-	models.Guest.save(guest)
+	guests := models.Guest.Get(1)
+	size := len(guests)
+	for i := 0; i < size; i++ {
+		fmt.Println(guests[i])
+	}
 	*/
+
+	staffs := models.VisitGuest.GetVisitingGuests(1)
+	guests := models.VisitGuest.GetVisitingGuests(2)
+	strangers := models.VisitGuest.GetVisitingGuests(3)
+
+
+	views.HomeView.Show(resp, staffs, guests, strangers)
+}
+
+func (ctl *_HomeController) GetVisiting(resp http.ResponseWriter, req *http.Request) {
+
 
 	guests := models.Guest.Get(1)
 	size := len(guests)
 	for i := 0; i < size; i++ {
 		fmt.Println(guests[i])
 	}
-	//fmt.Fprintf(resp, guests)
-	views.HomeView.Show(resp, guests)
+
+	//views.HomeView.Show(resp, guests)
 }

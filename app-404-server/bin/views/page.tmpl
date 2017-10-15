@@ -2,26 +2,83 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>AI Guest</title>
+	<meta http-equiv="refresh" content="1">
+	<title>AI Guest</title>
+	<link rel="shortcut icon" href="https://liudonghua.net/kone/img/guests.png" />
+	<script type="text/javascript" src="https://liudonghua.net/kone/js/jquery-1.12.4.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://liudonghua.net/kone/semantic-ui/semantic.min.css" />
+	<script type="text/javascript" src="https://liudonghua.net/kone/semantic-ui/semantic.min.js"></script>
 </head>
 
 <body>
-    <h1>Welcome to AI Guest</h1>
 
-	<h2>Staffs Visiting</h2>
-	<hr>
+	<div class="ui stackable container menu" style="margin-top:20px;">
+	  <div class="item">
+		<img src="https://liudonghua.net/kone/img/guests.png">
+	  </div>
+	  <a class="item"><strong>Welcome to AI Guest</strong></a>
 
-	<h2>Guests Visiting</h2>
-	<hr>
-	{{range .Guests}} 
-		<h3>{{.Name}}</h3>
-	{{end}}
+	</div>
 
-	<h2>Strangers Visiting</h2>
-	<hr>
-	{{range .Guests}} 
-		<h3>{{.Name}}</h3>
-	{{end}}
+	<h3 class="ui center aligned header">1.Staffs Visiting</h3>
+	<div class="ui container">
+		<table class="ui very basic table">
+		  <thead>
+			<tr>
+			  <th>Name</th>
+			  <th>Time</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			{{range .Staffs}} 
+				<tr>
+					<td>{{.Name}}</td>
+					<td>{{.Last_visit_time}}</td>
+				</tr>
+			{{end}}
+		  </tbody>
+		</table>
+	</div>
+
+	<h3 class="ui center aligned header">2.Guests Visiting</h3>
+	<div class="ui container">
+		<table class="ui very basic table">
+		  <thead>
+			<tr>
+			  <th>Name</th>
+			  <th>Time</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			{{range .Guests}} 
+				<tr>
+					<td>{{.Name}}</td>
+					<td>{{.Last_visit_time}}</td>
+				</tr>
+			{{end}}
+		  </tbody>
+		</table>
+	</div>
+
+	<h3 class="ui center aligned header">3.Strangers Visiting</h3>
+	<div class="ui container">
+		<table class="ui very basic table">
+		  <thead>
+			<tr>
+			  <th>Name</th>
+			  <th>Time</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			{{range .Guests}} 
+				<tr>
+					<td>{{.Name}}</td>
+					<td>{{.Last_visit_time}}</td>
+				</tr>
+			{{end}}
+		  </tbody>
+		</table>
+	</div>
 
 
 </body>

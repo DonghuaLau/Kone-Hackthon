@@ -10,7 +10,9 @@ import (
 var HomeView _HomeView
 
 type Info struct {
-	Guests []models.MGuest
+	Staffs []models.VGuest
+	Guests []models.VGuest
+	Stranger []models.VGuest
 }
 
 type _HomeView struct {
@@ -25,7 +27,7 @@ func (view *_HomeView) Init() {
 	}
 }
 
-func (view *_HomeView) Show(resp http.ResponseWriter, guests []models.MGuest) {
-	info := Info{guests}
+func (view *_HomeView) Show(resp http.ResponseWriter, staffs []models.VGuest, guests []models.VGuest, strangers []models.VGuest) {
+	info := Info{staffs, guests, strangers}
 	view.Tmpl.Execute(resp, info)
 }

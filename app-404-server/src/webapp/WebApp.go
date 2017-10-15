@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	//"fmt"
 	"log"
 	"net/http"
 	"webapp/controllers"
@@ -29,8 +29,9 @@ func (app *WebApp) init() {
 
 	views.HomeView.Init();
 
-	for key, value := range app._routers {
-		fmt.Println("key: ", key, ", method: ", value._method, ", URI: ", value._uri)
+	//for key, value := range app._routers {
+	for _, value := range app._routers {
+		//fmt.Println("key: ", key, ", method: ", value._method, ", URI: ", value._uri)
 		http.HandleFunc(value._uri, value._handler)
 	}
 }
@@ -51,6 +52,7 @@ func (app *WebApp) routers() {
 		{"GET", "/user/profile",controllers.UserController.Profile},
 		{"GET", "/guest/new",	controllers.HomeController.CreateGuest},
 		{"GET", "/guests",		controllers.HomeController.GetGuests},
+		{"GET", "/vistiting/list",		controllers.HomeController.GetVisiting},
 	}
 }
 
