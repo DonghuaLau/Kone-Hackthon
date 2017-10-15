@@ -202,3 +202,30 @@ void GetStrangers() []VGuest
 
 	return strangers
 }
+
+void InsertVisitingGuest(faceid string, type int) bool
+{
+	query_sql := "SELECT guest_id from guest where face_id="+faceid
+
+	rows, err := Initer._db.Query(query_sql)
+
+	if(err != nil){
+		fmt.Println("sql query failed, error: ", err)
+		return false
+	}
+ 	
+ 	guest_id int
+	rows.Scan(&guest_id)
+
+	insert_sql := "INSERT into visiting_guest values("+guest_id+" ,1,"+type+", now()) "
+
+	rows,err := Initer._db.Query(insert_sql)
+
+	if(err != nil)
+	{
+		fmt.Println("sql insert failed, error: ", err)
+		return false
+	}
+
+	return true
+}
