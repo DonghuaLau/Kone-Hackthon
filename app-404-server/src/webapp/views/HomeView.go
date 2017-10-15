@@ -12,7 +12,7 @@ var HomeView _HomeView
 type Info struct {
 	Staffs []models.VGuest
 	Guests []models.VGuest
-	Stranger []models.VGuest
+	Strangers []models.VGuest
 }
 
 type _HomeView struct {

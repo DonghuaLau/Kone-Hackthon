@@ -1,4 +1,4 @@
-package main
+package models
 
 import (
     "fmt"
@@ -164,6 +164,7 @@ func (guest *VGuest) GetVisitingGuests(_type int) []VGuest {
 		visiting_guests = append(visiting_guests, visiting_guest_info)
 	}
 
+	fmt.Println(visiting_guests)
 	return visiting_guests
 }
 
