@@ -1,7 +1,10 @@
-package services 
+package services
 
 import "fmt"
 
-type struct Config {
+var Config _Config
+
+type struct _Config {
+	_log_file string
 	_log_file string
 }
