@@ -7,8 +7,13 @@ building_id=9990000508
 from_area="area:9990000508:13000"
 to_area="area:9990000508:5000"
 
-curl --request GET \
-	--url https://api.kone.com/api/building/${building_id}/area/7000/arealink/ \
+host="https://api.kone.com/api/building"
+#api="${building_id}/area/10000/arealink/"
+api="${building_id}/call/"
+url="${host}/${api}"
+
+curl -s --request GET \
+	--url ${url}  \
 	--header "accept: application/vnd.api+json" \
 	--header "x-ibm-client-id: ${client_id}" \
 	--header "x-ibm-client-secret: ${client_secret}"
